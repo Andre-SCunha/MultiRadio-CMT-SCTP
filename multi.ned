@@ -18,45 +18,53 @@
 
 package inet.examples.sctp.wirelesscmttest;
 import inet.networklayer.configurator.ipv4.IPv4NetworkConfigurator;
+import inet.node.inet.INetworkNode;
 import inet.node.dymo.DYMORouter;
-import inet.physicallayer.ieee80211.packetlevel.Ieee80211ScalarRadioMedium;
+import inet.physicallayer.apskradio.packetlevel.APSKScalarRadioMedium;
+import inet.visualizer.integrated.IntegratedCanvasVisualizer;
 
 
 network multiradio
 {
     parameters:
+        string hostType = default("WirelessHost");
         double testTimeout @unit(s) = default(0s);
         bool testing = default(false);
     submodules:
-        cli1: DYMORouter {
+        visualizer: IntegratedCanvasVisualizer {
+            @display("p=580,125");
+        }
+        cli1: <hostType> like INetworkNode {
             parameters:
                 @display("p=61,142;i=device/card");
         }
-        srv1: DYMORouter {
+        srv1: <hostType> like INetworkNode {
             parameters:
                 @display("p=426,135;i=abstract/accesspoint");
         }
-        router1: DYMORouter {
+        router1: <hostType> like INetworkNode {
             parameters:
                 @display("p=188,77;i=device/card");
         }
-        router2: DYMORouter {
+        router2: <hostType> like INetworkNode {
             parameters:
                 @display("p=323,75;i=device/card");
         }
-        router3: DYMORouter {
+        router3: <hostType> like INetworkNode {
             parameters:
                 @display("p=188,192;i=device/card");
         }
-        router4: DYMORouter {
+        router4: <hostType> like INetworkNode {
             parameters:
                 @display("p=328,188;i=device/card");
         }
-        radioMedium: Ieee80211ScalarRadioMedium {
+        radioMedium: APSKScalarRadioMedium {
             @display("p=83,15");
         }
         configurator: IPv4NetworkConfigurator {
             addStaticRoutes = false;
+            addDefaultRoutes = false;
+            addSubnetRoutes = false;
             config = xml("<config>"+
                     "<interface hosts='cli1' names='wlan0' address='10.1.1.1' netmask='255.255.255.0' />"+
                     "<interface hosts='cli1' names='wlan1' address='10.2.1.1' netmask='255.255.255.0' />"+
@@ -70,18 +78,18 @@ network multiradio
                     "<interface hosts='router3' names='wlan1' address='10.2.2.254' netmask='255.255.255.0' />"+
                     "<interface hosts='router4' names='wlan0' address='10.2.2.253' netmask='255.255.255.0' />"+
                     "<interface hosts='router4' names='wlan1' address='10.2.3.254' netmask='255.255.255.0' />"+
-                    "<route hosts='cli1' destination='10.1.0.0' netmask='/16' gateway='router1' />"+
-                    "<route hosts='cli1' destination='10.2.0.0' netmask='/16' gateway='router3' />"+
-                    "<route hosts='srv1' destination='10.1.0.0' netmask='/16' gateway='router2' />"+
-                    "<route hosts='srv1' destination='10.2.0.0' netmask='/16' gateway='router4' />"+
-                    "<route hosts='router1' destination='10.1.1.1' netmask='/32' gateway='10.1.1.1' />"+
-                    "<route hosts='router1' destination='*' gateway='10.1.2.253' />"+
-                    "<route hosts='router2' destination='10.1.3.1' netmask='/32' gateway='10.1.3.1' />"+
-                    "<route hosts='router2' destination='*' gateway='10.1.2.254' />"+
-                    "<route hosts='router3' destination='10.2.1.1' netmask='/32' gateway='10.2.1.1' />"+
-                    "<route hosts='router3' destination='*' gateway='10.2.2.253' />"+
-                    "<route hosts='router4' destination='10.2.3.1' netmask='/32' gateway='10.2.3.1' />"+
-                    "<route hosts='router4' destination='*' gateway='10.2.2.254' />"+
+                    "<route hosts='cli1' destination='10.1.3.0' netmask='/24' gateway='router1' interface='wlan0'/>"+
+                    "<route hosts='cli1' destination='10.2.0.0' netmask='/16' gateway='router3' interface='wlan1'/>"+
+                    "<route hosts='srv1' destination='10.1.0.0' netmask='/16' gateway='router2' interface='wlan0'/>"+
+                    "<route hosts='srv1' destination='10.2.0.0' netmask='/16' gateway='router4' interface='wlan1'/>"+
+                    "<route hosts='router1' destination='10.1.1.1' netmask='/32' gateway='10.1.1.1' interface='wlan0'/>"+
+                    "<route hosts='router1' destination='*' gateway='10.1.2.253' interface='wlan1'/>"+
+                    "<route hosts='router2' destination='10.1.3.1' netmask='/32' gateway='10.1.3.1' interface='wlan0'/>"+
+                    "<route hosts='router2' destination='*' gateway='10.1.2.254' interface='wlan1'/>"+
+                    "<route hosts='router3' destination='10.2.1.1' netmask='/32' gateway='10.2.1.1' interface='wlan0'/>"+
+                    "<route hosts='router3' destination='*' gateway='10.2.2.253' interface='wlan1'/>"+
+                    "<route hosts='router4' destination='10.2.3.1' netmask='/32' gateway='10.2.3.1' interface='wlan0'/>"+
+                    "<route hosts='router4' destination='*' gateway='10.2.2.254' interface='wlan1'/>"+
                     "</config>");
         }
     connections allowunconnected:
