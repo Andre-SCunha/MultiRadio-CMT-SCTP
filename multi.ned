@@ -39,7 +39,7 @@ network multi
         {
             delay = 0ms;
             datarate = 250 kbps;
-            per = 0.1;
+            per = 0.0001;
         }
     submodules:
         cli1: StandardHost {
