@@ -1,14 +1,3 @@
-An important feature of SCTP is multihoming.
-In this network client and server have two IP adresses each,
-thus belonging to two different networks.
-Heartbeats and timer based retransmissions are sent via the
-second path.
+MultiRadio CMT-SCTP
 
-Each module has a routing file where its routing behaviour is
-configured.
-
-
-
-
-
-
+Protocolo de transporte de múltiplos caminhos aplicado a múltiplas interfaces de rádio.
