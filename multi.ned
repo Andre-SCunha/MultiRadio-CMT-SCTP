@@ -18,58 +18,83 @@
 
 package inet.examples.sctp.wirelesscmttest;
 import inet.networklayer.configurator.ipv4.IPv4NetworkConfigurator;
-import inet.node.dymo.DYMORouter;
-import inet.physicallayer.ieee80211.packetlevel.Ieee80211ScalarRadioMedium;
+import inet.node.inet.Router;
+import inet.node.inet.StandardHost;
+import ned.DatarateChannel;
 
 
-network multiradio
+network multi
 {
     parameters:
         double testTimeout @unit(s) = default(0s);
         bool testing = default(false);
+    types:
+        channel ppp1line extends DatarateChannel
+        {
+            delay = 10ms;
+            datarate = 1 Mbps;
+        }
+        channel ppp2line extends DatarateChannel
+        {
+            delay = 0ms;
+            datarate = 250 kbps;
+            per = 0.1;
+        }
     submodules:
-        cli1: DYMORouter {
+        cli1: StandardHost {
             parameters:
-                @display("p=61,142;i=device/card");
+                forwarding = false;
+                @display("p=61,142;i=device/laptop");
+            gates:
+                pppg[1];
         }
-        srv1: DYMORouter {
+        srv1: StandardHost {
             parameters:
-                @display("p=426,135;i=abstract/accesspoint");
+                forwarding = false;
+                @display("p=426,135;i=device/server2");
+            gates:
+                pppg[1];
+
         }
-        router1: DYMORouter {
+        router1: Router {
             parameters:
-                @display("p=188,77;i=device/card");
+                @display("p=188,77;i=abstract/router");
+            gates:
+                pppg[2];
         }
-        router2: DYMORouter {
+        router2: Router {
             parameters:
-                @display("p=323,75;i=device/card");
+                @display("p=323,75;i=abstract/router");
+            gates:
+                pppg[2];
         }
-        router3: DYMORouter {
+        router3: Router {
             parameters:
-                @display("p=188,192;i=device/card");
+                @display("p=188,192;i=abstract/router");
+            gates:
+                pppg[2];
         }
-        router4: DYMORouter {
+        router4: Router {
             parameters:
-                @display("p=328,188;i=device/card");
-        }
-        radioMedium: Ieee80211ScalarRadioMedium {
-            @display("p=83,15");
+                @display("p=328,188;i=abstract/router");
+            gates:
+                pppg[2];
         }
         configurator: IPv4NetworkConfigurator {
             addStaticRoutes = false;
             config = xml("<config>"+
-                    "<interface hosts='cli1' names='wlan0' address='10.1.1.1' netmask='255.255.255.0' />"+
-                    "<interface hosts='cli1' names='wlan1' address='10.2.1.1' netmask='255.255.255.0' />"+
-                    "<interface hosts='srv1' names='wlan0' address='10.1.3.1' netmask='255.255.255.0' />"+
-                    "<interface hosts='srv1' names='wlan1' address='10.2.3.1' netmask='255.255.255.0' />"+
-                    "<interface hosts='router1' names='wlan0' address='10.1.1.254' netmask='255.255.255.0' />"+
-                    "<interface hosts='router1' names='wlan1' address='10.1.2.254' netmask='255.255.255.0' />"+
-                    "<interface hosts='router2' names='wlan0' address='10.1.2.253' netmask='255.255.255.0' />"+
-                    "<interface hosts='router2' names='wlan1' address='10.1.3.254' netmask='255.255.255.0' />"+
-                    "<interface hosts='router3' names='wlan0' address='10.2.1.254' netmask='255.255.255.0' />"+
-                    "<interface hosts='router3' names='wlan1' address='10.2.2.254' netmask='255.255.255.0' />"+
-                    "<interface hosts='router4' names='wlan0' address='10.2.2.253' netmask='255.255.255.0' />"+
-                    "<interface hosts='router4' names='wlan1' address='10.2.3.254' netmask='255.255.255.0' />"+
+                    "<interface hosts='cli1' towards='router1' address='10.1.1.1' netmask='255.255.255.0' />"+
+                    "<interface hosts='cli1' towards='router3' address='10.2.1.1' netmask='255.255.255.0' />"+
+                    "<interface hosts='srv1' towards='router2' address='10.1.3.1' netmask='255.255.255.0' />"+
+                    "<interface hosts='srv1' towards='router4' address='10.2.3.1' netmask='255.255.255.0' />"+
+                    "<interface hosts='router1' towards='cli1' address='10.1.1.254' netmask='255.255.255.0' />"+
+                    "<interface hosts='router1' towards='router2' address='10.1.2.254' netmask='255.255.255.0' />"+
+                    "<interface hosts='router2' towards='router1' address='10.1.2.253' netmask='255.255.255.0' />"+
+                    "<interface hosts='router2' towards='srv1' address='10.1.3.254' netmask='255.255.255.0' />"+
+                    "<interface hosts='router3' towards='cli1' address='10.2.1.254' netmask='255.255.255.0' />"+
+                    "<interface hosts='router3' towards='router4' address='10.2.2.254' netmask='255.255.255.0' />"+
+                    "<interface hosts='router4' towards='router3' address='10.2.2.253' netmask='255.255.255.0' />"+
+                    "<interface hosts='router4' towards='srv1' address='10.2.3.254' netmask='255.255.255.0' />"+
                     "<route hosts='cli1' destination='10.1.0.0' netmask='/16' gateway='router1' />"+
                     "<route hosts='cli1' destination='10.2.0.0' netmask='/16' gateway='router3' />"+
                     "<route hosts='srv1' destination='10.1.0.0' netmask='/16' gateway='router2' />"+
@@ -84,6 +109,12 @@ network multiradio
                     "<route hosts='router4' destination='*' gateway='10.2.2.254' />"+
                     "</config>");
         }
-    connections allowunconnected:
+    connections:
+        cli1.pppg++ <--> ppp2line <--> router1.pppg++;
+        router1.pppg++ <--> ppp2line <--> router2.pppg++;
+        router2.pppg++ <--> ppp2line <--> srv1.pppg++;
+        cli1.pppg++ <--> ppp2line <--> router3.pppg++;
+        router3.pppg++ <--> ppp2line <--> router4.pppg++;
+        router4.pppg++ <--> ppp2line <--> srv1.pppg++;
 }
 

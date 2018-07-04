@@ -1,15 +1,15 @@
-                                                                
+file 5032 1530663129                                            
 version 2
-run General-0-20180630-16:58:41-11502
+run General-0-20180703-21:12:03-3812
 attr configname General
-attr datetime 20180630-16:58:41
+attr datetime 20180703-21:12:03
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
-attr network multiradio
-attr processid 11502
+attr network multi
+attr processid 3812
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -22,613 +22,125 @@ param **.cli1.numSctpApps 1
 param **.cli1.sctpApp[0].connectAddress "\"10.1.3.1\""
 param **.cli1.sctpApp[0].connectPort 6666
 param **.cli1.sctpApp[0].localAddress "\"10.1.1.1 10.2.1.1\""
-param **.cli1.sctpApp[0].numRequestsPerSession 100
+param **.cli1.sctpApp[0].numRequestsPerSession 100000000
 param **.cli1.sctpApp[0].outboundStreams 1
 param **.cli1.sctpApp[0].primaryPath "\"10.1.3.1\""
-param **.cli1.sctpApp[0].requestLength 1000
+param **.cli1.sctpApp[0].queueSize 100
+param **.cli1.sctpApp[0].requestLength 1400
 param **.cli1.sctpApp[0].startTime 1s
 param **.cli1.sctpApp[0].stopTime 60s
-param **.cmtCCVariant "\"cmt\""
-param **.cmtCUCVariant "\"pseudoCumAckV2\""
-param **.cmtUseDAC true
-param **.cmtUseFRC true
-param **.cmtUseSFR true
-param **.mac.maxQueueSize 15
-param **.numRadios 2
 param **.numUdpApps 0
 param **.ppp[*].queue.frameCapacity 20
 param **.ppp[*].queueType "\"DropTailQueue\""
-param **.radio.transmitter.power 2mW
 param **.srv1.numSctpApps 1
 param **.srv1.numTcpApps 0
 param **.srv1.sctpApp[*].typename "\"SCTPServer\""
+param **.srv1.sctpApp[0].bytesToPush 0
 param **.srv1.sctpApp[0].localAddress "\"10.1.3.1 10.2.3.1\""
 param **.srv1.sctpApp[0].localPort 6666
 param **.srv1.sctpApp[0].numPacketsToReceivePerClient 0
+param **.srv1.sctpApp[0].numPacketsToSendPerClient 0
 param **.srv1.sctpApp[0].outboundStreams 1
+param **.srv1.sctpApp[0].queueSize 0
+param **.srv1.sctpApp[0].readingInterval 0
 param **.srv1.tcpApp[*].typename "\"TCPSinkApp\""
 param **.udpApp[*].typename "\"UDPApp\""
-param **.wlan*.bitrate 54Mbps
-param *.visualizer.mediumVisualizer.displayCommunicationRanges true
-param multi.testTimeout 0
+param multi.testTimeout 0s
 param multi.testing false
 
-vector 16  multiradio.cli1.wlan[0].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 25  multiradio.cli1.wlan[1].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 39  multiradio.srv1.wlan[0].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 48  multiradio.srv1.wlan[1].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 62  multiradio.router1.wlan[0].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 71  multiradio.router1.wlan[1].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 85  multiradio.router2.wlan[0].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 94  multiradio.router2.wlan[1].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 108  multiradio.router3.wlan[0].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 117  multiradio.router3.wlan[1].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 131  multiradio.router4.wlan[0].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 140  multiradio.router4.wlan[1].mac.ctn[0]  state:vector  ETV
-attr interpolationmode  none
-attr source  stateChanged
-attr title  "contention state, vector"
-vector 12  multiradio.cli1.wlan[0].radio  radioMode:vector  ETV
+vector 11  multi.cli1.ppp[0].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 15  multiradio.cli1.wlan[0].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 12  multi.cli1.ppp[0].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 21  multiradio.cli1.wlan[1].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 22  multi.cli1.ppp[1].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 24  multiradio.cli1.wlan[1].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 23  multi.cli1.ppp[1].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 35  multiradio.srv1.wlan[0].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 38  multi.srv1.ppp[0].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 38  multiradio.srv1.wlan[0].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 39  multi.srv1.ppp[0].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 44  multiradio.srv1.wlan[1].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 49  multi.srv1.ppp[1].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 47  multiradio.srv1.wlan[1].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 50  multi.srv1.ppp[1].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 58  multiradio.router1.wlan[0].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 65  multi.router1.ppp[0].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 61  multiradio.router1.wlan[0].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 66  multi.router1.ppp[0].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 67  multiradio.router1.wlan[1].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 76  multi.router1.ppp[1].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 70  multiradio.router1.wlan[1].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 77  multi.router1.ppp[1].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 81  multiradio.router2.wlan[0].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 92  multi.router2.ppp[0].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 84  multiradio.router2.wlan[0].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 93  multi.router2.ppp[0].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 90  multiradio.router2.wlan[1].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 103  multi.router2.ppp[1].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 93  multiradio.router2.wlan[1].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 104  multi.router2.ppp[1].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 104  multiradio.router3.wlan[0].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 119  multi.router3.ppp[0].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 107  multiradio.router3.wlan[0].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 120  multi.router3.ppp[0].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 113  multiradio.router3.wlan[1].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 130  multi.router3.ppp[1].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 116  multiradio.router3.wlan[1].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 131  multi.router3.ppp[1].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 127  multiradio.router4.wlan[0].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 146  multi.router4.ppp[0].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 130  multiradio.router4.wlan[0].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 147  multi.router4.ppp[0].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 136  multiradio.router4.wlan[1].radio  radioMode:vector  ETV
+attr title  "tx state, vector"
+vector 157  multi.router4.ppp[1].queue  queueLength:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioModeChanged
-attr title  "Radio mode, vector"
-vector 139  multiradio.router4.wlan[1].radio  radioChannel:vector  ETV
+attr title  "queue length, vector"
+vector 158  multi.router4.ppp[1].ppp  txState:vector  ETV
 attr interpolationmode  sample-hold
-attr source  radioChannelChanged
-attr title  "Radio channel, vector"
-vector 13  multiradio.cli1.wlan[0].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 22  multiradio.cli1.wlan[1].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 36  multiradio.srv1.wlan[0].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 45  multiradio.srv1.wlan[1].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 59  multiradio.router1.wlan[0].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 68  multiradio.router1.wlan[1].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 82  multiradio.router2.wlan[0].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 91  multiradio.router2.wlan[1].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 105  multiradio.router3.wlan[0].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 114  multiradio.router3.wlan[1].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 128  multiradio.router4.wlan[0].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 137  multiradio.router4.wlan[1].radio  receptionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  receptionStateChanged
-attr title  "Radio reception state, vector"
-vector 162  multiradio.srv1.sctp  "Throughput of Association 2"  ETV
-vector 184  multiradio.cli1.sctp  "Throughput of Association 1"  ETV
-vector 204  multiradio.cli1.sctp  "Fast Recovery State 1:10.1.3.1"  ETV
-vector 3  multiradio.cli1.networkLayer.arp  sentReq:vector  ETV
-attr title  "ARP request sent, vector"
-vector 10  multiradio.cli1.wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 9  multiradio.cli1.wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 14  multiradio.cli1.wlan[0].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 20  multiradio.cli1.wlan[1].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 17  multiradio.cli1.wlan[1].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 103  multiradio.router3.wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 100  multiradio.router3.wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 112  multiradio.router3.wlan[1].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 109  multiradio.router3.wlan[1].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 57  multiradio.router1.wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 54  multiradio.router1.wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 66  multiradio.router1.wlan[1].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 63  multiradio.router1.wlan[1].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 50  multiradio.router1.networkLayer.arp  sentReply:vector  ETV
-attr title  "ARP replies sent, vector"
-vector 56  multiradio.router1.wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 65  multiradio.router1.wlan[1].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 64  multiradio.router1.wlan[1].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 69  multiradio.router1.wlan[1].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 80  multiradio.router2.wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 89  multiradio.router2.wlan[1].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 11  multiradio.cli1.wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 8  multiradio.cli1.wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 126  multiradio.router4.wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 135  multiradio.router4.wlan[1].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 34  multiradio.srv1.wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 43  multiradio.srv1.wlan[1].mac  rcvdPkFromLL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromLower
-attr title  "packets received from lower layer, vector(packetBytes)"
-vector 55  multiradio.router1.wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 60  multiradio.router1.wlan[0].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 49  multiradio.router1.networkLayer.arp  sentReq:vector  ETV
-attr title  "ARP request sent, vector"
-vector 77  multiradio.router2.wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 86  multiradio.router2.wlan[1].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 73  multiradio.router2.networkLayer.arp  sentReply:vector  ETV
-attr title  "ARP replies sent, vector"
-vector 79  multiradio.router2.wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 88  multiradio.router2.wlan[1].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 123  multiradio.router4.wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 132  multiradio.router4.wlan[1].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 31  multiradio.srv1.wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 40  multiradio.srv1.wlan[1].mac  passedUpPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToUpper
-attr title  "packets passed to higher layer, vector(packetBytes)"
-vector 78  multiradio.router2.wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 83  multiradio.router2.wlan[0].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 87  multiradio.router2.wlan[1].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 92  multiradio.router2.wlan[1].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 72  multiradio.router2.networkLayer.arp  sentReq:vector  ETV
-attr title  "ARP request sent, vector"
-vector 27  multiradio.srv1.networkLayer.arp  sentReply:vector  ETV
-attr title  "ARP replies sent, vector"
-vector 33  multiradio.srv1.wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 42  multiradio.srv1.wlan[1].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 32  multiradio.srv1.wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 37  multiradio.srv1.wlan[0].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 233  multiradio.srv1.sctp  "Throughput of Association 2"  ETV
-vector 159  multiradio.srv1.sctp  "Peer Rwnd 2"  ETV
-vector 253  multiradio.srv1.sctp  "Fast Recovery State 3:10.1.1.1"  ETV
-vector 280  multiradio.srv1.sctp  "Fast Recovery State 3:10.2.1.1"  ETV
-vector 41  multiradio.srv1.wlan[1].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 46  multiradio.srv1.wlan[1].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 181  multiradio.cli1.sctp  "Peer Rwnd 1"  ETV
-vector 307  multiradio.cli1.sctp  "Fast Recovery State 1:10.2.3.1"  ETV
-vector 236  multiradio.srv1.sctp  "Slow Start Threshold 3:10.1.1.1"  ETV
-vector 237  multiradio.srv1.sctp  "Congestion Window 3:10.1.1.1"  ETV
-vector 238  multiradio.srv1.sctp  "Bandwidth 3:10.1.1.1"  ETV
-vector 234  multiradio.srv1.sctp  "RTO 3:10.1.1.1"  ETV
-vector 263  multiradio.srv1.sctp  "Slow Start Threshold 3:10.2.1.1"  ETV
-vector 264  multiradio.srv1.sctp  "Congestion Window 3:10.2.1.1"  ETV
-vector 265  multiradio.srv1.sctp  "Bandwidth 3:10.2.1.1"  ETV
-vector 268  multiradio.srv1.sctp  "HB Sent 3:10.2.1.1"  ETV
-vector 261  multiradio.srv1.sctp  "RTO 3:10.2.1.1"  ETV
-vector 26  multiradio.srv1.networkLayer.arp  sentReq:vector  ETV
-attr title  "ARP request sent, vector"
-vector 119  multiradio.router4.networkLayer.arp  sentReply:vector  ETV
-attr title  "ARP replies sent, vector"
-vector 125  multiradio.router4.wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 134  multiradio.router4.wlan[1].mac  rcvdPkFromHL:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetReceivedFromUpper
-attr title  "packets received from higher layer, vector(packetBytes)"
-vector 124  multiradio.router4.wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 133  multiradio.router4.wlan[1].mac  sentDownPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  packetSentToLower
-attr title  "packets sent to lower layer, vector(packetBytes)"
-vector 129  multiradio.router4.wlan[0].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 138  multiradio.router4.wlan[1].radio  transmissionState:vector  ETV
-attr interpolationmode  sample-hold
-attr source  transmissionStateChanged
-attr title  "Radio transmission state, vector"
-vector 187  multiradio.cli1.sctp  "Slow Start Threshold 1:10.1.3.1"  ETV
-vector 188  multiradio.cli1.sctp  "Congestion Window 1:10.1.3.1"  ETV
-vector 189  multiradio.cli1.sctp  "Bandwidth 1:10.1.3.1"  ETV
-vector 185  multiradio.cli1.sctp  "RTO 1:10.1.3.1"  ETV
-vector 290  multiradio.cli1.sctp  "Slow Start Threshold 1:10.2.3.1"  ETV
-vector 291  multiradio.cli1.sctp  "Congestion Window 1:10.2.3.1"  ETV
-vector 292  multiradio.cli1.sctp  "Bandwidth 1:10.2.3.1"  ETV
-vector 295  multiradio.cli1.sctp  "HB Sent 1:10.2.3.1"  ETV
-vector 288  multiradio.cli1.sctp  "RTO 1:10.2.3.1"  ETV
-vector 1  multiradio.cli1.sctpApp[0]  sentPk:vector(packetBytes)  ETV
-attr interpolationmode  none
-attr source  sentPk
-attr title  "packets sent, vector(packetBytes)"
-1	23429 18768780 2165 2165 1.012912177045 1.012912177045 695140 1000 1000 695140000 695140000000
-3	18792209 33 28 2164 1 1.012912177045 2 1 1 2 2
-8	18792242 122 115 2159 1.000238951774 1.012912177045 5 64 192 456 54336
-9	18792364 132 33 1542 1 1.00898174461 6 14 152 370 40332
-10	18792496 63 31 1488 1 1.00861774461 3 64 152 328 39744
-11	18792559 384 115 2159 1.000238951774 1.012912177045 15 14 192 932 99352
-12	18792943 284 0 1558 0 1.00903174461 14 0 3 32 82
-13	18793227 1056 0 2157 0 1.012912177045 45 0 3 70 162
-14	18794283 532 34 1558 1 1.00903174461 24 0 2 24 36
-15	18794815 9 0 0 0 0 1 0 0 0 0
-16	18794824 2690 0 2157 0 1.012912177045 118 0 3 84 208
-17	18797514 42 50 393 1.00005 1.002346855322 2 64 64 128 8192
-20	18797556 528 50 2160 1.00005 1.012912177045 21 14 192 1302 139684
-21	18798084 18 0 0 0 0 2 0 2 2 4
-22	18798102 1056 0 2158 0 1.012912177045 45 1 3 88 216
-24	18799158 9 0 0 0 0 1 0 0 0 0
-25	18799167 2570 0 2160 0 1.012912177045 110 0 0 0 0
-26	18801737 25 1744 1744 1.010081068471 1.010081068471 1 1 1 1 1
-27	18801762 48 730 731 1.004683028853 1.004683028853 2 1 1 2 2
-31	18801810 102 412 1059 1.002347196551 1.006218619305 4 64 112 304 24832
-32	18801912 128 761 1991 1.004733028853 1.012210733561 5 14 192 406 50436
-33	18802040 103 736 1751 1.004683028853 1.010081068471 4 64 192 392 50240
-34	18802143 851 128 2101 1.000239293003 1.012369476833 33 14 192 1898 198204
-35	18802994 262 0 2007 0 1.012260733561 12 0 3 27 69
-36	18803256 1900 0 2143 0 1.012874518274 78 0 3 141 345
-37	18805156 488 762 2007 1.004733028853 1.012260733561 20 0 2 20 30
-38	18805644 9 0 0 0 0 1 0 0 0 0
-39	18805653 4458 0 2143 0 1.012874518274 184 0 3 102 262
-40	18810111 129 413 2008 1.002347196551 1.012260733561 5 64 152 408 39488
-41	18810240 52 1188 1762 1.006831520027 1.010091068471 2 14 64 78 4292
-42	18810292 25 737 737 1.004683028853 1.004683028853 1 64 64 64 4096
-43	18810317 927 129 2102 1.000239293003 1.012369476833 36 14 192 2226 244348
-44	18811244 118 0 1785 0 1.010395068471 6 0 3 12 30
-45	18811362 1901 0 2144 0 1.012874518274 78 0 3 150 372
-46	18813263 200 1189 1785 1.006831520027 1.010395068471 8 0 2 8 12
-47	18813463 9 0 0 0 0 1 0 0 0 0
-48	18813472 4210 0 2144 0 1.012874518274 174 0 3 76 152
-49	18817682 24 288 288 1.001552379435 1.001552379435 1 1 1 1 1
-50	18817706 96 72 1076 1.000050475887 1.006218672053 4 1 1 4 4
-54	18817802 205 66 2050 1.000050475887 1.012261550677 8 64 192 728 84544
-55	18818007 284 175 2131 1.000843427661 1.012873701158 11 14 192 776 90768
-56	18818291 181 78 1933 1.000050475887 1.011525916445 7 64 192 720 89984
-57	18818472 874 66 2119 1.000050475887 1.012369701158 34 14 192 1970 203388
-58	18819346 558 0 2147 0 1.012911701158 24 0 3 57 147
-59	18819904 2215 0 2147 0 1.012911701158 91 0 3 148 352
-60	18822119 1080 176 2147 1.000843427661 1.012911701158 44 0 2 44 66
-61	18823199 9 0 0 0 0 1 0 0 0 0
-62	18823208 4936 0 2132 0 1.012873701158 204 0 3 213 511
-63	18828144 178 67 2051 1.000050475887 1.012261550677 7 64 112 504 38208
-64	18828322 101 87 1940 1.000200475887 1.011535916445 4 14 64 156 8584
-65	18828423 50 79 1082 1.000050475887 1.006218672053 2 64 64 128 8192
-66	18828473 1056 67 2148 1.000050475887 1.012911701158 41 14 192 2590 285572
-67	18829529 213 0 1965 0 1.011839916445 10 0 3 22 56
-68	18829742 2215 0 2146 0 1.012911701158 91 0 3 169 415
-69	18831957 390 88 1965 1.000200475887 1.011839916445 16 0 2 16 24
-70	18832347 9 0 0 0 0 1 0 0 0 0
-71	18832356 4642 0 2148 0 1.012911701158 192 0 3 80 184
-72	18836998 47 626 965 1.00366863124 1.005804221692 2 1 1 2 2
-73	18837045 48 382 383 1.002346829796 1.002346829796 2 1 1 2 2
-77	18837093 257 376 2030 1.002346829796 1.012261131174 10 64 192 912 102272
-78	18837350 383 421 1900 1.002716829796 1.011487466084 15 14 192 832 91552
-79	18837733 180 388 1840 1.002346829796 1.010823466084 7 64 192 720 89984
-80	18837913 614 111 2155 1.000238926248 1.012912151519 24 14 192 1544 162272
-81	18838527 749 0 1916 0 1.011525466084 32 0 3 77 199
-82	18839276 1911 0 2153 0 1.012912151519 79 0 3 112 256
-83	18841187 1461 422 1916 1.002716829796 1.011525466084 60 0 2 60 90
-84	18842648 9 0 0 0 0 1 0 0 0 0
-85	18842657 4766 0 2155 0 1.012912151519 198 0 3 190 478
-86	18847423 101 377 2031 1.002346829796 1.012261131174 4 64 64 256 16384
-87	18847524 25 511 511 1.003179730518 1.003179730518 1 64 64 64 4096
-88	18847549 25 389 389 1.002346829796 1.002346829796 1 64 64 64 4096
-89	18847574 973 112 2156 1.000238926248 1.012912151519 38 14 192 2312 249728
-90	18848547 66 0 527 0 1.003217730518 4 0 3 7 17
-91	18848613 1911 0 2154 0 1.012912151519 79 0 3 154 382
-92	18850524 96 512 527 1.003179730518 1.003217730518 4 0 2 4 6
-93	18850620 9 0 0 0 0 1 0 0 0 0
-94	18850629 4278 0 2156 0 1.012912151519 178 0 3 34 82
-100	18854907 131 56 2040 1.000050455275 1.012261549894 5 64 64 320 20480
-103	18855038 1197 56 2151 1.000050455275 1.012912084757 45 14 192 2746 294156
-104	18856235 20 0 0 0 0 2 0 2 2 4
-105	18856255 2294 0 2149 0 1.012912084757 91 1 3 181 451
-107	18858549 10 0 0 0 0 1 0 0 0 0
-108	18858559 4708 0 2151 0 1.012912084757 188 0 0 0 0
-109	18863267 131 57 2041 1.000050455275 1.012261549894 5 64 64 320 20480
-112	18863398 1197 57 2152 1.000050455275 1.012912084757 45 14 192 2746 294156
-113	18864595 20 0 0 0 0 2 0 2 2 4
-114	18864615 2294 0 2150 0 1.012912084757 91 1 3 181 451
-116	18866909 10 0 0 0 0 1 0 0 0 0
-117	18866919 4708 0 2152 0 1.012912084757 188 0 0 0 0
-119	18871627 52 2020 2021 1.012261105197 1.012261105197 2 1 1 2 2
-123	18871679 106 402 2014 1.002346975396 1.012261105197 4 64 64 256 16384
-124	18871785 27 2062 2062 1.012331105197 1.012331105197 1 64 64 64 4096
-125	18871812 27 2026 2026 1.012261105197 1.012261105197 1 64 64 64 4096
-126	18871839 985 124 2014 1.000239071848 1.012261105197 37 14 192 2240 244544
-127	18872824 72 0 2095 0 1.012369105197 4 0 3 7 17
-128	18872896 1968 0 2141 0 1.012874297119 78 0 3 153 381
-129	18874864 104 2064 2095 1.012331105197 1.012369105197 4 0 2 4 6
-130	18874968 10 0 0 0 0 1 0 0 0 0
-131	18874978 4470 0 2141 0 1.012874297119 178 0 3 23 55
-132	18879448 106 403 2015 1.002346975396 1.012261105197 4 64 64 256 16384
-133	18879554 27 2063 2063 1.012331105197 1.012331105197 1 64 64 64 4096
-134	18879581 27 2027 2027 1.012261105197 1.012261105197 1 64 64 64 4096
-135	18879608 985 125 2015 1.000239071848 1.012261105197 37 14 192 2240 244544
-136	18880593 72 0 2096 0 1.012369105197 4 0 3 7 17
-137	18880665 1968 0 2142 0 1.012874297119 78 0 3 153 381
-138	18882633 104 2066 2096 1.012331105197 1.012369105197 4 0 2 4 6
-139	18882737 10 0 0 0 0 1 0 0 0 0
-140	18882747 4470 0 2142 0 1.012874297119 178 0 3 23 55
-159	18887217 29 877 877 1.005241824079 1.005241824079 1 65535 65535 65535 4294836225
-162	18887246 11 23 23 0 0 1 0 0 0 0
-181	18887257 29 1485 1485 1.00861774461 1.00861774461 1 65535 65535 65535 4294836225
-184	18887286 11 27 27 1 1 1 0 0 0 0
-185	18887297 26 2163 2163 1.012912177045 1.012912177045 1 3 3 3 9
-187	18887323 30 2163 2163 1.012912177045 1.012912177045 1 65535 65535 65535 4294836225
-188	18887353 29 2163 2163 1.012912177045 1.012912177045 1 4608 4608 4608 21233664
-189	18887382 30 2163 2163 1.012912177045 1.012912177045 1 0.192 0.192 0.192 0.036864
-204	18887412 11 27 27 1 1 1 0 0 0 0
-233	18887423 25 877 877 1.005241824079 1.005241824079 1 0 0 0 0
-234	18887448 26 1743 1743 1.010081068471 1.010081068471 1 3 3 3 9
-236	18887474 30 1743 1743 1.010081068471 1.010081068471 1 65535 65535 65535 4294836225
-237	18887504 29 1743 1743 1.010081068471 1.010081068471 1 4608 4608 4608 21233664
-238	18887533 30 1743 1743 1.010081068471 1.010081068471 1 0.192 0.192 0.192 0.036864
-253	18887563 25 877 877 1.005241824079 1.005241824079 1 0 0 0 0
-261	18887588 26 1743 1743 1.010081068471 1.010081068471 1 3 3 3 9
-263	18887614 30 1743 1743 1.010081068471 1.010081068471 1 65535 65535 65535 4294836225
-264	18887644 29 1743 1743 1.010081068471 1.010081068471 1 4608 4608 4608 21233664
-265	18887673 30 1743 1743 1.010081068471 1.010081068471 1 0.192 0.192 0.192 0.036864
-268	18887703 26 1743 1743 1.010081068471 1.010081068471 1 1 1 1 1
-280	18887729 25 877 877 1.005241824079 1.005241824079 1 0 0 0 0
-288	18887754 26 2163 2163 1.012912177045 1.012912177045 1 3 3 3 9
-290	18887780 30 2163 2163 1.012912177045 1.012912177045 1 65535 65535 65535 4294836225
-291	18887810 29 2163 2163 1.012912177045 1.012912177045 1 4608 4608 4608 21233664
-292	18887839 30 2163 2163 1.012912177045 1.012912177045 1 0.192 0.192 0.192 0.036864
-295	18887869 26 2163 2163 1.012912177045 1.012912177045 1 1 1 1 1
-307	18887895 25 1485 1485 1.00861774461 1.00861774461 1 0 0 0 0
-1	18887920 18874377 2165 2165 1.012912177045 1.012912177045 699051 1000 1000 699051000 699051000000
+attr title  "tx state, vector"
+11	4806 9 0 0 0 0 1 0 0 0 0
+12	4815 9 0 0 0 0 1 0 0 0 0
+22	4824 9 0 0 0 0 1 0 0 0 0
+23	4833 9 0 0 0 0 1 0 0 0 0
+38	4842 9 0 0 0 0 1 0 0 0 0
+39	4851 9 0 0 0 0 1 0 0 0 0
+49	4860 9 0 0 0 0 1 0 0 0 0
+50	4869 9 0 0 0 0 1 0 0 0 0
+65	4878 9 0 0 0 0 1 0 0 0 0
+66	4887 9 0 0 0 0 1 0 0 0 0
+76	4896 9 0 0 0 0 1 0 0 0 0
+77	4905 9 0 0 0 0 1 0 0 0 0
+92	4914 9 0 0 0 0 1 0 0 0 0
+93	4923 9 0 0 0 0 1 0 0 0 0
+103	4932 10 0 0 0 0 1 0 0 0 0
+104	4942 10 0 0 0 0 1 0 0 0 0
+119	4952 10 0 0 0 0 1 0 0 0 0
+120	4962 10 0 0 0 0 1 0 0 0 0
+130	4972 10 0 0 0 0 1 0 0 0 0
+131	4982 10 0 0 0 0 1 0 0 0 0
+146	4992 10 0 0 0 0 1 0 0 0 0
+147	5002 10 0 0 0 0 1 0 0 0 0
+157	5012 10 0 0 0 0 1 0 0 0 0
+158	5022 10 0 0 0 0 1 0 0 0 0
