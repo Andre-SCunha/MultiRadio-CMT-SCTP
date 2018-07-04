@@ -31,8 +31,9 @@ network multi
     types:
         channel ppp1line extends DatarateChannel
         {
-            delay = 10ms;
-            datarate = 1 Mbps;
+            delay = 0ms;
+            datarate = 125 kbps;
+            per = 0.1;
         }
         channel ppp2line extends DatarateChannel
         {
@@ -111,7 +112,7 @@ network multi
         }
     connections:
         cli1.pppg++ <--> ppp2line <--> router1.pppg++;
-        router1.pppg++ <--> ppp2line <--> router2.pppg++;
+        router1.pppg++ <--> ppp1line <--> router2.pppg++;
         router2.pppg++ <--> ppp2line <--> srv1.pppg++;
         cli1.pppg++ <--> ppp2line <--> router3.pppg++;
         router3.pppg++ <--> ppp2line <--> router4.pppg++;
